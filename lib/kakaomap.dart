@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:kakao_map_plugin_example/api/Restapi.dart';
+import 'package:kakao_map_plugin_example/model/location.dart';
 import 'myGeolocator.dart';
 
 class MyKakaoMap extends StatefulWidget {
@@ -95,7 +97,11 @@ Future<LatLng> getLocation() async {
 void _printCurrentLocation() async {
   try {
     LatLng currentLocation = await getLocation();
-    print("Current location: Lat-${currentLocation.latitude}, Lng-${currentLocation.longitude}");
+    print(currentLocation.latitude.toString() +
+        " " +
+        currentLocation.longitude.toString());
+    location loc =location(currentLocation.latitude.toString(),currentLocation.longitude.toString());
+    Api().sendLocation(loc);
   } catch (e) {
     print("Failed to get location: $e");
   }
