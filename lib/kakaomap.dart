@@ -72,6 +72,17 @@ class _MyKakaoMapState extends State<MyKakaoMap> {
               );
             }
           }),
+          bottomNavigationBar: BottomAppBar(
+  child: InkWell(
+    onTap: _printCurrentLocation, 
+    child: Container(
+      height: kBottomNavigationBarHeight, 
+      width: double.infinity, 
+      alignment: Alignment.center, 
+      child: Icon(Icons.location_on, size: 28), 
+    ),
+  ),
+),
     );
   }
 }
@@ -79,4 +90,13 @@ class _MyKakaoMapState extends State<MyKakaoMap> {
 Future<LatLng> getLocation() async {
   Position position = await determinePosition();
   return LatLng(position.latitude, position.longitude);
+}
+
+void _printCurrentLocation() async {
+  try {
+    LatLng currentLocation = await getLocation();
+    print("Current location: Lat-${currentLocation.latitude}, Lng-${currentLocation.longitude}");
+  } catch (e) {
+    print("Failed to get location: $e");
+  }
 }
