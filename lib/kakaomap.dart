@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
-import 'package:kakao_map_plugin_example/api/Restapi.dart';
-import 'package:kakao_map_plugin_example/model/location.dart';
 import 'myGeolocator.dart';
 
 class MyKakaoMap extends StatefulWidget {
@@ -42,87 +40,44 @@ class _MyKakaoMapState extends State<MyKakaoMap> {
   late KakaoMapController mapController;
   Set<Marker> markers = {};
 
-  //press button to send location and show snackbar
-  void _printCurrentLocation() async {
-    try {
-      LatLng currentLocation = await getLocation();
-      print(currentLocation.latitude.toString() +
-          " " +
-          currentLocation.longitude.toString());
-      location loc = location(currentLocation.latitude.toString(), currentLocation.longitude.toString());
-      await Api().sendLocation(loc);
-      
-      // success message
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('위치가 성공적으로 전송되었습니다!'),
-          duration: Duration(seconds: 2),
-        ),
-      );
-
-    } catch (e) {
-      print("Failed to get location: $e");
-       
-      // error massage
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('위치를 전송을 실패했습니다'),
-          backgroundColor: Colors.red,
-          duration: Duration(seconds: 2),
-        ),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder(
-          future: getLocation(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final LatLng? userLocation = snapshot.data;
-              return KakaoMap(
-                onMapCreated: ((controller) async {
-                  mapController = controller;
+    return FutureBuilder(
+      future: getLocation(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final LatLng? userLocation = snapshot.data;
+          return KakaoMap(
+            onMapCreated: ((controller) async {
+              mapController = controller;
 
-                  markers.add(Marker(
-                    markerId: UniqueKey().toString(),
-                    latLng: await mapController.getCenter(),
-                  ));
+              markers.add(Marker(
+                markerId: UniqueKey().toString(),
+                latLng: await mapController.getCenter(),
+              ));
 
-                  setState(() {});
-                }),
-                markers: markers.toList(),
-                center: userLocation,
-              );
-            } else if (snapshot.hasError) {
-              return Center(
-                child: Text('Error: ${snapshot.error}'),
-              );
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          }),
-          bottomNavigationBar: BottomAppBar(
-  child: InkWell(
-    onTap: _printCurrentLocation, 
-    child: Container(
-      height: kBottomNavigationBarHeight, 
-      width: double.infinity, 
-      alignment: Alignment.center, 
-      child: Icon(Icons.location_on, size: 28), 
-    ),
-  ),
-),
+              setState(() {});
+            }),
+            markers: markers.toList(),
+            center: userLocation,
+          );
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Text('Error: ${snapshot.error}'),
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
     );
   }
 }
 
 Future<LatLng> getLocation() async {
   Position position = await determinePosition();
+  print(position);
   return LatLng(position.latitude, position.longitude);
 }
 
