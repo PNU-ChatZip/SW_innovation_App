@@ -4,12 +4,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:kakao_map_plugin_example/model/location.dart'; 
 class Api {
-  final String _baseUrl = dotenv.env["URL"] ?? "http://waterboom.iptime.org:1101"; 
+  final String _baseUrl = dotenv.env["URL"]!; 
 
   Future<void> sendLocation(location location) async {
     Uri url = Uri.parse('$_baseUrl/send-location'); 
 
-    try {
+    // try {
       http.Response response = await http.post(
         url,
         headers: {
@@ -23,8 +23,11 @@ class Api {
       } else {
         print('Failed to send location. Status Code: ${response.statusCode}');
       }
-    } catch (e) {
-      print('Error sending location: $e');
-    }
+    
+    // } catch (e) {
+    //   print('Error sending location: $e');
+    // }
   }
+
+  // Future
 }
