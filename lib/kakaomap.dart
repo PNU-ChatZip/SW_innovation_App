@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:kakao_map_plugin_example/api/Restapi.dart';
+import 'package:kakao_map_plugin_example/model/location.dart';
 import 'myGeolocator.dart';
 
 class MyKakaoMap extends StatefulWidget {
@@ -40,6 +42,38 @@ class _MyKakaoMapState extends State<MyKakaoMap> {
   late KakaoMapController mapController;
   Set<Marker> markers = {};
 
+  //press button to send location and show snackbar
+  void _printCurrentLocation() async {
+    try {
+      LatLng currentLocation = await getLocation();
+      print(currentLocation.latitude.toString() +
+          " " +
+          currentLocation.longitude.toString());
+      location loc = location(currentLocation.latitude.toString(), currentLocation.longitude.toString());
+      await Api().sendLocation(loc);
+      
+      // success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('위치가 성공적으로 전송되었습니다!'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+
+    } catch (e) {
+      print("Failed to get location: $e");
+       
+      // error massage
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('위치를 전송을 실패했습니다'),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +106,17 @@ class _MyKakaoMapState extends State<MyKakaoMap> {
               );
             }
           }),
+          bottomNavigationBar: BottomAppBar(
+  child: InkWell(
+    onTap: _printCurrentLocation, 
+    child: Container(
+      height: kBottomNavigationBarHeight, 
+      width: double.infinity, 
+      alignment: Alignment.center, 
+      child: Icon(Icons.location_on, size: 28), 
+    ),
+  ),
+),
     );
   }
 }
@@ -80,3 +125,16 @@ Future<LatLng> getLocation() async {
   Position position = await determinePosition();
   return LatLng(position.latitude, position.longitude);
 }
+
+// void _printCurrentLocation() async {
+//   try {
+//     LatLng currentLocation = await getLocation();
+//     print(currentLocation.latitude.toString() +
+//         " " +
+//         currentLocation.longitude.toString());
+//     location loc =location(currentLocation.latitude.toString(),currentLocation.longitude.toString());
+//     Api().sendLocation(loc);
+//   } catch (e) {
+//     print("Failed to get location: $e");
+//   }
+// }

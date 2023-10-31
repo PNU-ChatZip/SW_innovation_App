@@ -38,6 +38,8 @@ dependencies:
   kakao_map_plugin: ^0.2.2
   geolocator: ^10.1.0
   flutter_dotenv: ^5.1.0
+  path_provider: ^2.1.1
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:
