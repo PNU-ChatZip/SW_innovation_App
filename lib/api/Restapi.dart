@@ -29,5 +29,27 @@ class Api {
     // }
   }
 
+  Future<List<location>> receiveLocation() async {
+    Uri url = Uri.parse('$_baseUrl/receive-location'); 
+
+    try {
+      http.Response response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        List<dynamic> body = jsonDecode(response.body);
+        List<location> locations =
+            body.map((dynamic item) => location.fromJson(item)).toList();
+        print(locations);
+        return locations;
+      } else {
+        print('Failed to load location. Status Code: ${response.statusCode}');
+        return <location>[];
+      }
+    } catch (e) {
+      print('Error loading location: $e');
+      return <location>[];
+    }
+  }
+
   // Future
 }
