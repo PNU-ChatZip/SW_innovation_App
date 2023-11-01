@@ -46,13 +46,12 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           const SizedBox(
-            height: 600,
+            height: 670,
             child: MyKakaoMap(),
           ),
           Row(
@@ -71,27 +70,8 @@ class _MainScreenState extends State<MainScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  OutlinedButton(
-                                    onPressed: () {},
-                                    child: Text('포트홀'),
-                                  ),
-                                  OutlinedButton(
-                                    onPressed: () {},
-                                    child: Text('도로 막힘'),
-                                  ),
-                                  OutlinedButton(
-                                    onPressed: () {},
-                                    child: Text('차량 사고'),
-                                  ),
-                                ],
-                              ),
                               ElevatedButton(
-                                child: const Text('Close BottomSheet'),
+                                child: const Text('확인'),
                                 onPressed: () => Navigator.pop(context),
                               ),
                             ],
@@ -104,83 +84,26 @@ class _MainScreenState extends State<MainScreen> {
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
                   padding: MaterialStateProperty.all<EdgeInsets>(
-                    const EdgeInsets.all(12), // Set padding for all sides
+                    const EdgeInsets.symmetric(
+                        vertical: 12.0,
+                        horizontal: 100.0), // Set padding for all sides
                   ),
                   textStyle: MaterialStateProperty.all<TextStyle>(
                     const TextStyle(fontSize: 16), // Set the font size
                   ),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.blue),
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.red),
                   overlayColor: MaterialStateProperty.all<Color>(Colors.grey),
                   side: MaterialStateProperty.all<BorderSide>(
                     const BorderSide(
-                        color: Colors.blue,
+                        color: Colors.red,
                         width: 2), // Set border color and width
                   ),
                 ),
-                child: const Text("신고하기"),
-              ),
-              OutlinedButton(
-                onPressed: () {
-                  showModalBottomSheet<void>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SizedBox(
-                        height: 600,
-                        width: 400,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            const SizedBox(
-                              width: 300,
-                              child: TextField(
-                                decoration: InputDecoration(hintText: "출발지"),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 300,
-                              child: TextField(
-                                decoration: InputDecoration(hintText: "목적지"),
-                              ),
-                            ),
-                            ElevatedButton(
-                              child: const Text('Close BottomSheet'),
-                              onPressed: () => Navigator.pop(context),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
-                },
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                    ),
-                  ),
-                  padding: MaterialStateProperty.all<EdgeInsets>(
-                    const EdgeInsets.all(12), // Set padding for all sides
-                  ),
-                  textStyle: MaterialStateProperty.all<TextStyle>(
-                    const TextStyle(fontSize: 16), // Set the font size
-                  ),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.blue),
-                  overlayColor: MaterialStateProperty.all<Color>(Colors.grey),
-                  side: MaterialStateProperty.all<BorderSide>(
-                    const BorderSide(
-                        color: Colors.blue,
-                        width: 2), // Set border color and width
-                  ),
-                ),
-                child: const Text("길찾기"),
+                child: const Text("포트홀 신고하기"),
               ),
             ],
           )
