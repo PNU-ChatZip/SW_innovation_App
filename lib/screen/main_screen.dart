@@ -13,13 +13,35 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  // A list to hold the received locations
+  List<location> _receivedLocations = [];
+
+  //retrieve locations from server
+  void _retrieveLocations() async {
+    try {
+      List<location> locations = await Api().receiveLocation();
+      // Use setState to update the UI with the received locations
+      setState(() {
+        _receivedLocations = locations;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to retrieve locations: $e'),
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    }
+  }
+
   //press button to send location and show snackbar
-  void _printCurrentLocation() async {
+  void _printCurrentLocation(String type) async {
     try {
       LatLng currentLocation = await getLocation();
       print("${currentLocation.latitude} ${currentLocation.longitude}");
       location loc = location(currentLocation.latitude.toString(),
-          currentLocation.longitude.toString());
+          currentLocation.longitude.toString(), type);
       await Api().sendLocation(loc);
 
       // success message
