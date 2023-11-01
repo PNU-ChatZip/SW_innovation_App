@@ -57,6 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
+  dash_bubble:
+    dependency: "direct main"
+    description:
+      name: dash_bubble
+      sha256: a331ac641bf4cc42d75c9501566a88e9ce9a64a54cacf04e6c05f974328c895a
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -94,6 +102,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  flutter_overlay_apps:
+    dependency: "direct main"
+    description:
+      name: flutter_overlay_apps
+      sha256: ded9063edca4eb811c5a1e8604c5a4ece925c377438f0860fe0869a1276a9283
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
