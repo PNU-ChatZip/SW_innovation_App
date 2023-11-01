@@ -21,6 +21,7 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     notificationManager.initNotifications();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,11 +100,11 @@ class _MainScreenState extends State<MainScreen> {
                     DashBubble.instance.startBubble(
                       bubbleOptions: BubbleOptions(
                         bubbleIcon: "porthole",
-                        bubbleSize: 150,
+                        bubbleSize: 200,
                         distanceToClose: 100,
                         enableClose: false,
-                        startLocationX: 250,
-                        startLocationY: 500,
+                        startLocationX: 200,
+                        startLocationY: 450,
                       ),
                       onTap: () {
                         print("click bubble");
