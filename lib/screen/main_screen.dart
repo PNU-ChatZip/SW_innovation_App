@@ -2,6 +2,7 @@ import 'package:dash_bubble/dash_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_overlay_apps/flutter_overlay_apps.dart';
 import 'package:kakao_map_plugin_example/api/Restapi.dart';
+import 'package:kakao_map_plugin_example/service/notification.dart';
 import 'package:kakao_map_plugin_example/widget/BottomTab.dart';
 
 import '../kakaomap.dart';
@@ -14,6 +15,12 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final NotificationManager notificationManager = NotificationManager();
+  @override
+  void initState() {
+    super.initState();
+    notificationManager.initNotifications();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +44,7 @@ class _MainScreenState extends State<MainScreen> {
                       onTap: () {
                         print("click bubble");
                         Api().sendCurrentLocation("포트홀");
+                        notificationManager.showNotification();
                       },
                       notificationOptions: NotificationOptions(
                         title: "b map title",
