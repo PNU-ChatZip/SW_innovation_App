@@ -40,6 +40,8 @@ dependencies:
   flutter_dotenv: ^5.1.0
   path_provider: ^2.1.1
   http: ^1.1.0
+  flutter_overlay_apps: ^1.2.0
+  dash_bubble: ^2.0.0
 
 dev_dependencies:
   flutter_test:

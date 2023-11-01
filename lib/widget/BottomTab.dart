@@ -50,7 +50,7 @@ class _BottomTabState extends State<BottomTab> {
           SnackBar(
             content: const Text('위치가 성공적으로 전송되었습니다!'),
             duration: const Duration(seconds: 2),
-            backgroundColor: Colors.blue,
+            backgroundColor: Color.fromRGBO(143, 148, 251, 1),
             dismissDirection: DismissDirection.up,
             behavior: SnackBarBehavior.floating,
             margin: EdgeInsets.only(
@@ -88,28 +88,75 @@ class _BottomTabState extends State<BottomTab> {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        OutlinedButton(
+        TextButton(
           onPressed: () {
             showModalBottomSheet<void>(
               context: context,
               builder: (BuildContext context) {
                 return SizedBox(
-                  height: 200,
-                  child: Center(
+                  height: 400,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(
+                          12.0), // Set the border radius here
+                    ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                _printCurrentLocation("포트홀");
-                              },
-                              child: Text("포트홀"),
+                            Column(
+                              children: [
+                                IconButton.outlined(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.abc),
+                                  tooltip: "포트홀 신고",
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
+                                    ),
+                                    padding:
+                                        MaterialStateProperty.all<EdgeInsets>(
+                                      const EdgeInsets.all(40.0),
+                                    ),
+                                    textStyle:
+                                        MaterialStateProperty.all<TextStyle>(
+                                      const TextStyle(
+                                          fontSize: 16), // Set the font size
+                                    ),
+                                    foregroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Color.fromRGBO(143, 148, 251, 1)),
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                      Colors.white,
+                                    ),
+                                    side: MaterialStateProperty.all<BorderSide>(
+                                      const BorderSide(
+                                          color:
+                                              Color.fromRGBO(143, 148, 251, 1),
+                                          width:
+                                              2), // Set border color and width
+                                    ),
+                                  ),
+                                ),
+                                Text("포트홀"),
+                              ],
                             ),
+                            // ElevatedButton(
+                            //   onPressed: () {
+                            //     _printCurrentLocation("포트홀");
+                            //   },
+                            //   child: Text("포트홀"),
+                            // ),
                             ElevatedButton(
                               onPressed: () {
                                 _printCurrentLocation("도로 막힘");
@@ -125,7 +172,40 @@ class _BottomTabState extends State<BottomTab> {
                           ],
                         ),
                         ElevatedButton(
-                          child: const Text('확인'),
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                              const EdgeInsets.symmetric(
+                                  vertical: 12.0,
+                                  horizontal:
+                                      100.0), // Set padding for all sides
+                            ),
+                            textStyle: MaterialStateProperty.all<TextStyle>(
+                              const TextStyle(
+                                  fontSize: 16), // Set the font size
+                            ),
+                            foregroundColor: MaterialStateProperty.all<Color>(
+                                Color.fromRGBO(143, 148, 251, 1)),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.white,
+                            ),
+                            side: MaterialStateProperty.all<BorderSide>(
+                              const BorderSide(
+                                  color: Color.fromRGBO(143, 148, 251, 1),
+                                  width: 2), // Set border color and width
+                            ),
+                          ),
+                          child: const Text(
+                            '취소',
+                            style: TextStyle(
+                                color: Color.fromRGBO(143, 148, 251, 1),
+                                fontWeight: FontWeight.bold),
+                          ),
                           onPressed: () => Navigator.pop(context),
                         ),
                       ],
@@ -149,14 +229,22 @@ class _BottomTabState extends State<BottomTab> {
             textStyle: MaterialStateProperty.all<TextStyle>(
               const TextStyle(fontSize: 16), // Set the font size
             ),
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.red),
-            overlayColor: MaterialStateProperty.all<Color>(Colors.grey),
+            foregroundColor: MaterialStateProperty.all<Color>(
+              Color.fromRGBO(143, 148, 251, 1),
+            ),
+            backgroundColor: MaterialStateProperty.all<Color>(
+              Color.fromRGBO(143, 148, 251, 1),
+            ),
             side: MaterialStateProperty.all<BorderSide>(
               const BorderSide(
-                  color: Colors.red, width: 2), // Set border color and width
+                  color: Color.fromRGBO(143, 148, 251, 1),
+                  width: 2), // Set border color and width
             ),
           ),
-          child: const Text("신고하기"),
+          child: const Text(
+            "포트홀 신고하기",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
         ),
       ],
     );

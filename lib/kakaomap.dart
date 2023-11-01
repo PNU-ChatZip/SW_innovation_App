@@ -37,11 +37,18 @@ class _MyKakaoMapState extends State<MyKakaoMap> {
           );
         } else if (snapshot.hasError) {
           return Center(
-            child: Text('Error: ${snapshot.error}'),
+            child: Text(
+              'Error: ${snapshot.error}',
+              style: TextStyle(
+                color: Colors.red,
+              ),
+            ),
           );
         } else {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Color.fromRGBO(143, 148, 251, 1),
+            ),
           );
         }
       },
