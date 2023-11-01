@@ -42,6 +42,7 @@ dependencies:
   http: ^1.1.0
   flutter_overlay_apps: ^1.2.0
   dash_bubble: ^2.0.0
+  shared_preferences: ^2.2.2
   flutter_local_notifications: ^16.1.0
 
 dev_dependencies:
