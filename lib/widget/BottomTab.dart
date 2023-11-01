@@ -41,7 +41,7 @@ class _BottomTabState extends State<BottomTab> {
       LatLng currentLocation = await getLocation();
       print("${currentLocation.latitude} ${currentLocation.longitude}");
       location loc = location(currentLocation.latitude.toString(),
-          currentLocation.longitude.toString(), type);
+          currentLocation.longitude.toString(), type, DateTime.now().toIso8601String());
       await Api().sendLocation(loc);
 
       // success message
