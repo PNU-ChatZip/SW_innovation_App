@@ -1,6 +1,7 @@
 import 'package:dash_bubble/dash_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_overlay_apps/flutter_overlay_apps.dart';
+import 'package:kakao_map_plugin_example/api/Restapi.dart';
 import 'package:kakao_map_plugin_example/widget/BottomTab.dart';
 
 import '../kakaomap.dart';
@@ -30,9 +31,12 @@ class _MainScreenState extends State<MainScreen> {
                         bubbleIcon: "porthole",
                         bubbleSize: 200,
                         distanceToClose: 100,
+                        enableClose: false,
+
                       ),
                       onTap: () {
                         print("click bubble");
+                        Api().sendCurrentLocation("포트홀");
                       },
                       notificationOptions: NotificationOptions(
                         title: "b map title",
@@ -45,12 +49,12 @@ class _MainScreenState extends State<MainScreen> {
                 },
                 child: const Text("버튼 오버레이"),
               ),
-              // ElevatedButton(
-              //   onPressed: () async {
-              //     DashBubble.instance.stopBubble();
-              //   },
-              //   child: const Text("종료하기"),
-              // ),
+              ElevatedButton(
+                onPressed: () async {
+                  DashBubble.instance.stopBubble();
+                },
+                child: const Text("종료하기"),
+              ),
             ],
           ),
           Container(
@@ -58,7 +62,7 @@ class _MainScreenState extends State<MainScreen> {
             width: 400,
             child: MyKakaoMap(),
           ),
-          BottomTab(),
+          // BottomTab(),
         ],
       ),
     );
