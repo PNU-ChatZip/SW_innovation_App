@@ -9,6 +9,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool passwordVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,23 +66,51 @@ class _LoginScreenState extends State<LoginScreen> {
                         Container(
                           padding: EdgeInsets.all(8.0),
                           decoration: BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(color: Colors.grey))),
+                            border: Border(
+                              bottom: BorderSide(color: Colors.grey),
+                            ),
+                          ),
                           child: TextField(
                             decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Email or Phone number",
-                                hintStyle: TextStyle(color: Colors.grey[400])),
+                              fillColor: Colors.white,
+                              focusColor: Color.fromRGBO(143, 148, 251, 1),
+                              border: const UnderlineInputBorder(),
+                              hintText: "ID",
+                              labelText: "ID",
+                              alignLabelWithHint: false,
+                              filled: true,
+                            ),
+                            keyboardType: TextInputType.visiblePassword,
+                            textInputAction: TextInputAction.done,
                           ),
                         ),
                         Container(
                           padding: EdgeInsets.all(8.0),
                           child: TextField(
+                            obscureText: passwordVisible,
                             decoration: InputDecoration(
-                              border: InputBorder.none,
+                              fillColor: Colors.white,
+                              focusColor: Color.fromRGBO(143, 148, 251, 1),
+                              border: const UnderlineInputBorder(),
                               hintText: "Password",
-                              hintStyle: TextStyle(color: Colors.grey[400]),
+                              labelText: "Password",
+                              suffixIcon: IconButton(
+                                icon: Icon(passwordVisible
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
+                                onPressed: () {
+                                  setState(
+                                    () {
+                                      passwordVisible = !passwordVisible;
+                                    },
+                                  );
+                                },
+                              ),
+                              alignLabelWithHint: false,
+                              filled: true,
                             ),
+                            keyboardType: TextInputType.visiblePassword,
+                            textInputAction: TextInputAction.done,
                           ),
                         ),
                       ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'myGeolocator.dart';
 
 class MyKakaoMap extends StatefulWidget {
@@ -24,11 +25,29 @@ class _MyKakaoMapState extends State<MyKakaoMap> {
           return KakaoMap(
             onMapCreated: ((controller) async {
               mapController = controller;
+              final SharedPreferences prefs =
+                  await SharedPreferences.getInstance();
+              final List<String>? records = prefs.getStringList('records');
+              if (records != null) {
+                for (int i = 0; i < records.length; i++) {
+                  markers.add(
+                    Marker(
+                      markerId: UniqueKey().toString(),
+                      latLng: LatLng(
+                        double.parse(records[i].split(" ")[0]),
+                        double.parse(records[i].split(" ")[1]),
+                      ),
+                    ),
+                  );
+                }
+              }
 
-              markers.add(Marker(
-                markerId: UniqueKey().toString(),
-                latLng: await mapController.getCenter(),
-              ));
+              markers.add(
+                Marker(
+                  markerId: UniqueKey().toString(),
+                  latLng: await mapController.getCenter(),
+                ),
+              );
 
               setState(() {});
             }),
@@ -39,8 +58,8 @@ class _MyKakaoMapState extends State<MyKakaoMap> {
           return Center(
             child: Text(
               'Error: ${snapshot.error}',
-              style: TextStyle(
-                color: Colors.red,
+              style: const TextStyle(
+                color: Colors.redAccent,
               ),
             ),
           );
